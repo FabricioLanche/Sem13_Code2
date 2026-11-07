@@ -349,6 +349,9 @@ Exp* Parser::parseFactor() {
     else if (match(Token::AMP)) {
         return new AddrExp(parseFactor());
     }
+    else if (match(Token::MINUS)) {
+        return new BinaryExp(new NumberExp(0), parseFactor(), MINUS_OP);
+    }
     return parseIndices(parsePrimary());
 }
 

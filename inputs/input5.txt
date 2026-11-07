@@ -1,7 +1,7 @@
 fun int get_val(int* v, int idx, int defVal)
     var int x;
     x = v[idx];
-    return x ?= defVal
+    return x ?: defVal
 endfun
 
 fun int main()

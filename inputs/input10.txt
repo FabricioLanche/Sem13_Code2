@@ -1,5 +1,5 @@
 fun int clamp_score(int score, int defScore)
-    return score ?= defScore
+    return score ?: defScore
 endfun
 
 fun int ranking(int* scores, int n)

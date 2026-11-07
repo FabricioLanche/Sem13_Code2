@@ -33,9 +33,9 @@ Token* Scanner::nextToken() {
             current++;
         token = new Token(Token::NUM, input, first, current - first);
     }
-    else if (isalpha(c)) {
+    else if (isalpha(c) || c == '_') {
         current++;
-        while (current < input.length() && isalnum(input[current]))
+        while (current < input.length() && (isalnum(input[current]) || input[current] == '_'))
             current++;
         string lexema = input.substr(first, current - first);
         if (lexema == "sqrt")          return new Token(Token::SQRT,     input, first, current - first);

@@ -37,11 +37,17 @@ fun int main()
     print(clamp(80, 10, 50))
 endfun
 
-TypeChecker: NO SE EJECUTÓ
-  Error al parsear: Error lexico
+TypeChecker: PASÓ (Typecheck exitoso)
 
 Resultado de input1.s:
-No se generó
+-1
+0
+1
+25
+999
+10
+25
+50
 
 ========================================
 input2.txt
@@ -72,7 +78,7 @@ fun int main()
 
     pos1 = buscar(datos, 5, 50) ?: (0 - 1);
     pos2 = buscar(datos, 5, 99) ?: (0 - 1);
-    defPos = buscar(datos, 5, 10) ?= 999;
+    defPos = buscar(datos, 5, 10) ?: 999;
 
     print(pos1);
     print(pos2);
@@ -81,11 +87,12 @@ fun int main()
     free(datos)
 endfun
 
-TypeChecker: NO SE EJECUTÓ
-  Error al parsear: Error lexico
+TypeChecker: PASÓ (Typecheck exitoso)
 
 Resultado de input2.s:
-No se generó
+3
+-1
+1
 
 ========================================
 input3.txt
@@ -185,7 +192,7 @@ Ejercicio:
 fun int get_val(int* v, int idx, int defVal)
     var int x;
     x = v[idx];
-    return x ?= defVal
+    return x ?: defVal
 endfun
 
 fun int main()
@@ -214,11 +221,16 @@ fun int main()
     free(vec)
 endfun
 
-TypeChecker: NO SE EJECUTÓ
-  Error al parsear: Error lexico
+TypeChecker: PASÓ (Typecheck exitoso)
 
 Resultado de input5.s:
-No se generó
+10
+100
+10
+10
+250
+10
+390
 
 ========================================
 input6.txt
@@ -362,7 +374,7 @@ input10.txt
 ========================================
 Ejercicio:
 fun int clamp_score(int score, int defScore)
-    return score ?= defScore
+    return score ?: defScore
 endfun
 
 fun int ranking(int* scores, int n)
@@ -404,8 +416,13 @@ fun int main()
     free(tareas)
 endfun
 
-TypeChecker: NO SE EJECUTÓ
-  Error al parsear: Error lexico
+TypeChecker: PASÓ (Typecheck exitoso)
 
 Resultado de input10.s:
-No se generó
+50
+60
+75
+60
+90
+335
+-2

@@ -23,7 +23,7 @@ fun int main()
 
     pos1 = buscar(datos, 5, 50) ?: (0 - 1);
     pos2 = buscar(datos, 5, 99) ?: (0 - 1);
-    defPos = buscar(datos, 5, 10) ?= 999;
+    defPos = buscar(datos, 5, 10) ?: 999;
 
     print(pos1);
     print(pos2);
