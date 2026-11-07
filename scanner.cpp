@@ -73,6 +73,15 @@ Token* Scanner::nextToken() {
             case ']': token = new Token(Token::RBRACKET, c); break;
             case '&': token = new Token(Token::AMP,     c); break;
             case '.': token = new Token(Token::DOT,     c); break;
+            case '?':
+                if (input[current + 1] == ':') {
+                    current++;
+                    token = new Token(Token::ELVIS_OP, input, first, current + 1 - first);
+                }
+                else {
+                    token = new Token(Token::ERR, c);
+                }
+                break;
             case '*':
                 if (input[current + 1] == '*') {
                     current++;
@@ -85,7 +94,13 @@ Token* Scanner::nextToken() {
             case '<':
                 if (input[current + 1] == '=') {
                     current++;
-                    token = new Token(Token::LE, input, first, current + 1 - first);
+                    if (input[current + 1] == '>') {
+                        current++;
+                        token = new Token(Token::SPACE_SHIP, input, first, current + 1 - first);
+                    } 
+                    else {
+                        token = new Token(Token::LE, input, first, current + 1 - first);
+                    }
                 }
                 else {
                     token = new Token(Token::LT, c);

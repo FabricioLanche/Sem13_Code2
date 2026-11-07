@@ -111,6 +111,22 @@ Type InlineVisitor::visit(StackOpExp* exp) {
     return Type();
 }
 
+Type InlineVisitor::visit(SpaceShipExp* exp) {
+    exp->left = reemplazar(exp->left);
+    exp->right = reemplazar(exp->right);
+    reemplazo = exp;
+    esSimple = false;
+    return Type();
+}
+
+Type InlineVisitor::visit(ElvisExp* exp) {
+    exp->principal = reemplazar(exp->principal);
+    exp->alternativa = reemplazar(exp->alternativa);
+    reemplazo = exp;
+    esSimple = false;
+    return Type();
+}
+
 // ---------- Sentencias ----------
 // Reemplazan cada expresión por su versión expandida.
 // Al terminar dejan retorno en nullptr; solo el return lo apunta a sí mismo

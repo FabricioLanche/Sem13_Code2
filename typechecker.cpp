@@ -189,6 +189,26 @@ Type TypeChecker::visit(StackOpExp* exp) {
     }
 }
 
+Type TypeChecker::visit(SpaceShipExp* exp) {
+    Type l = exp->left->accept(this);
+    Type r = exp->right->accept(this);
+    if (!l.isInt() || !r.isInt()) {
+        error("el operador '<=>' necesita operandos int, pero recibió "
+              + l.kindName() + " <=> " + r.kindName());
+    }
+    return Type(0);
+}
+
+Type TypeChecker::visit(ElvisExp* exp) {
+    Type l = exp->principal->accept(this);
+    Type r = exp->alternativa->accept(this);
+    if (!l.mismoTipo(r)) {
+        error("el operador '?:' necesita dos operandos del mismo tipo, pero recibió "
+              + l.kindName() + " ?: " + r.kindName());
+    }
+    return l;
+}
+
 // ---------- Sentencias ----------
 
 // x = e: x declarada y e del mismo tipo

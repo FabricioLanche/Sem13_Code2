@@ -113,6 +113,50 @@ Type GencodeVisitor::visit(BinaryExp* exp) {
     return tipoResultado(exp->op, l, r);
 }
 
+Type GencodeVisitor::visit(SpaceShipExp* exp) {
+    if (exp->esConstante) {
+        out << "movq $" << exp->valorConstante << ", %rax" << endl;
+        return Type((int)exp->valorConstante);
+    }
+
+    exp->left->accept(this);
+    out << "pushq %rax" << endl;
+    pila++;
+    exp->right->accept(this);
+    out << "movq %rax, %rcx" << endl;
+    out << "popq %rax" << endl;
+    pila--;
+
+    int id = etiquetas++;
+    out << "cmpq %rcx, %rax" << endl;
+    out << "jl spaceship_menor_" << id << endl;
+    out << "jg spaceship_mayor_" << id << endl;
+    out << "movq $0, %rax" << endl;
+    out << "jmp spaceship_fin_" << id << endl;
+    out << "spaceship_menor_" << id << ":" << endl;
+    out << "movq $-1, %rax" << endl;
+    out << "jmp spaceship_fin_" << id << endl;
+    out << "spaceship_mayor_" << id << ":" << endl;
+    out << "movq $1, %rax" << endl;
+    out << "spaceship_fin_" << id << ":" << endl;
+    return Type(0);
+}
+
+Type GencodeVisitor::visit(ElvisExp* exp) {
+    if (exp->esConstante) {
+        out << "movq $" << exp->valorConstante << ", %rax" << endl;
+        return Type((int)exp->valorConstante);
+    }
+
+    int id = etiquetas++;
+    Type t = exp->principal->accept(this);
+    out << "cmpq $0, %rax" << endl;
+    out << "jne elvis_fin_" << id << endl;
+    t = exp->alternativa->accept(this);
+    out << "elvis_fin_" << id << ":" << endl;
+    return t;
+}
+
 // %rax = %rax op %rcx (left en %rax, right en %rcx)
 void GencodeVisitor::operar(BinaryExp* exp, Type l) {
     // Aritmética de punteros: p + i avanza i elementos, es decir, i * 8 bytes

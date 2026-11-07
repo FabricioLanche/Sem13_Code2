@@ -132,6 +132,22 @@ Type ReduccionFuerzaVisitor::visit(StackOpExp* exp) {
     return Type();
 }
 
+Type ReduccionFuerzaVisitor::visit(SpaceShipExp* exp) {
+    exp->left = reemplazar(exp->left);
+    exp->right = reemplazar(exp->right);
+    reemplazo = exp;
+    variable = "";
+    return Type();
+}
+
+Type ReduccionFuerzaVisitor::visit(ElvisExp* exp) {
+    exp->principal = reemplazar(exp->principal);
+    exp->alternativa = reemplazar(exp->alternativa);
+    reemplazo = exp;
+    variable = "";
+    return Type();
+}
+
 // ---------- Sentencias ----------
 // Reemplazan cada expresión por su versión reducida
 

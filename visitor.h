@@ -31,6 +31,8 @@ public:
     virtual Type visit(AddrExp* exp) = 0;
     virtual Type visit(MallocExp* exp) = 0;
     virtual Type visit(StackOpExp* exp) = 0;
+    virtual Type visit(ElvisExp* exp) = 0;
+    virtual Type visit(SpaceShipExp* exp) = 0;
     // Sentencias
     virtual void visit(AssignStmt* stm) = 0;
     virtual void visit(StackStmt* stm) = 0;

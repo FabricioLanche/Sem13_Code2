@@ -14,6 +14,8 @@ Type DerefExp::accept(Visitor* visitor)   { return visitor->visit(this); }
 Type AddrExp::accept(Visitor* visitor)    { return visitor->visit(this); }
 Type MallocExp::accept(Visitor* visitor)  { return visitor->visit(this); }
 Type StackOpExp::accept(Visitor* visitor) { return visitor->visit(this); }
+Type ElvisExp::accept(Visitor* visitor)   { return visitor->visit(this); }
+Type SpaceShipExp::accept(Visitor* visitor){ return visitor->visit(this);}
 
 void AssignStmt::accept(Visitor* visitor)  { visitor->visit(this); }
 void StackStmt::accept(Visitor* visitor)   { visitor->visit(this); }

@@ -255,6 +255,28 @@ Exp* FCallExp::clonar() {
     return copia;
 }
 
+ElvisExp::ElvisExp(Exp* p, Exp* a) : principal(p), alternativa(a) {}
+
+ElvisExp::~ElvisExp() {
+    delete principal;
+    delete alternativa;
+}
+
+Exp* ElvisExp::clonar() {
+    return new ElvisExp(principal->clonar(), alternativa->clonar());
+}
+
+SpaceShipExp::SpaceShipExp(Exp* l, Exp* r) : left(l), right(r) {}
+
+SpaceShipExp::~SpaceShipExp() {
+    delete left;
+    delete right;
+}
+
+Exp* SpaceShipExp::clonar() {
+    return new SpaceShipExp(left->clonar(), right->clonar());
+}
+
 // Crea un return vacío (el parser asigna la expresión)
 ReturnStmt::ReturnStmt() : exp(nullptr) {}
 

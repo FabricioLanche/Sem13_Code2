@@ -102,6 +102,26 @@ Type SethiUllmanVisitor::visit(StackOpExp* exp) {
     return Type();
 }
 
+Type SethiUllmanVisitor::visit(SpaceShipExp* exp) {
+    hijoDerecho = false;
+    exp->left->accept(this);
+    hijoDerecho = true;
+    exp->right->accept(this);
+    int l1 = exp->left->etiqueta;
+    int l2 = exp->right->etiqueta;
+    if (l1 != l2) exp->etiqueta = max(l1, l2);
+    else exp->etiqueta = l1 + 1;
+    return Type();
+}
+
+Type SethiUllmanVisitor::visit(ElvisExp* exp) {
+    hijoDerecho = false;
+    exp->principal->accept(this);
+    exp->alternativa->accept(this);
+    exp->etiqueta = max(1, max(exp->principal->etiqueta, exp->alternativa->etiqueta));
+    return Type();
+}
+
 // ---------- Sentencias ----------
 // Solo recorren sus expresiones
 

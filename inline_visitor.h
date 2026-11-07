@@ -30,6 +30,8 @@ public:
     Type visit(AddrExp* exp) override;
     Type visit(MallocExp* exp) override;
     Type visit(StackOpExp* exp) override;
+    Type visit(ElvisExp* exp) override;
+    Type visit(SpaceShipExp* exp) override;
     void visit(AssignStmt* stm) override;
     void visit(StackStmt* stm) override;
     void visit(StoreStmt* stm) override;

@@ -120,6 +120,29 @@ Type ConstanteVisitor::visit(StackOpExp* exp) {
     return Type();
 }
 
+Type ConstanteVisitor::visit(SpaceShipExp* exp) {
+    exp->left->accept(this);
+    exp->right->accept(this);
+    noConstante(exp);
+    if (!exp->left->esConstante || !exp->right->esConstante) return Type();
+    long long a = exp->left->valorConstante;
+    long long b = exp->right->valorConstante;
+    constante(exp, a < b ? -1 : (a > b ? 1 : 0));
+    return Type();
+}
+
+Type ConstanteVisitor::visit(ElvisExp* exp) {
+    exp->principal->accept(this);
+    exp->alternativa->accept(this);
+    noConstante(exp);
+    if (!exp->principal->esConstante || !exp->alternativa->esConstante) return Type();
+    long long valor = exp->principal->valorConstante != 0
+                    ? exp->principal->valorConstante
+                    : exp->alternativa->valorConstante;
+    constante(exp, valor);
+    return Type();
+}
+
 // ---------- Sentencias ----------
 // Solo recorren sus expresiones
 

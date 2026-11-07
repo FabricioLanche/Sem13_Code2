@@ -53,6 +53,8 @@ public:
         FREE,
         SIZEOF,
         DOT,
+        ELVIS_OP,
+        SPACE_SHIP,
         END
     };
 

@@ -154,6 +154,26 @@ public:
     ~StackOpExp();
 };
 
+class ElvisExp : public Exp {
+public:
+    Exp* principal;
+    Exp* alternativa;
+    ElvisExp(Exp* p, Exp* a);
+    Type accept(Visitor* visitor) override;
+    Exp* clonar() override;
+    ~ElvisExp();
+};
+
+class SpaceShipExp : public Exp {
+public:
+    Exp* left;
+    Exp* right;
+    SpaceShipExp(Exp* l, Exp* r);
+    Type accept(Visitor* visitor) override;
+    Exp* clonar() override;
+    ~SpaceShipExp();
+};
+
 // ==================== Sentencias ====================
 // Las sentencias no producen valor: accept devuelve void
 

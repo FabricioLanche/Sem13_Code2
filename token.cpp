@@ -61,6 +61,8 @@ ostream& operator<<(ostream& outs, const Token& tok) {
         case Token::FREE:     outs << "TOKEN(FREE, \""     << tok.text << "\")"; break;
         case Token::SIZEOF:   outs << "TOKEN(SIZEOF, \""   << tok.text << "\")"; break;
         case Token::DOT:      outs << "TOKEN(DOT, \""      << tok.text << "\")"; break;
+        case Token::ELVIS_OP: outs << "TOKEN(ELVIS_OP, \"" << tok.text << "\")"; break;
+        case Token::SPACE_SHIP: outs << "TOKEN(SPACE_SHIP, \"" << tok.text << "\")"; break;
         case Token::END:     outs << "TOKEN(END)"; break;
     }
     return outs;

@@ -282,9 +282,16 @@ Exp* Parser::parseCExp() {
     else if (match(Token::GE)) op = GE_OP;
     else if (match(Token::EQ)) op = EQ_OP;
     else if (match(Token::NE)) op = NE_OP;
-    else return l;
+    else {
+        if (match(Token::SPACE_SHIP)) return new SpaceShipExp(l, parseCExp());
+        if (match(Token::ELVIS_OP))   return new ElvisExp(l, parseCExp());
+        return l;
+    }
     Exp* r = parseBExp();
-    return new BinaryExp(l, r, op);
+    l = new BinaryExp(l, r, op);
+    if (match(Token::SPACE_SHIP)) return new SpaceShipExp(l, parseCExp());
+    if (match(Token::ELVIS_OP))   return new ElvisExp(l, parseCExp());
+    return l;
 }
 
 // BExp ::= expr { (+ | -) expr }*
